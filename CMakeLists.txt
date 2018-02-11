@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.5)
+project(MMSample)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+
+set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:$ENV{HOME}/Applications/ffmpeg/lib/pkgconfig")
+
+include(FindPkgConfig)
+if (PkgConfig_FOUND)
+    pkg_check_modules(LIBFFMPEG libavformat libavcodec libavutil libswscale libswresample)
+    if (LIBFFMPEG_FOUND)
+        include_directories(BEFORE SYSTEM ${LIBFFMPEG_INCLUDE_DIRS})
+        link_directories(${LIBFFMPEG_LIBRARY_DIRS})
+        link_libraries("${LIBFFMPEG_LIBRARIES}")
+    endif (LIBFFMPEG_FOUND)
+
+    pkg_check_modules(SDL sdl2 SDL2_image)
+    if (SDL_FOUND)
+        include_directories(${SDL_INCLUDE_DIRS})
+        add_compile_options(${SDL_CFLAGS})
+        link_directories(${SDL_LIBRARY_DIRS})
+        link_libraries(${SDL_LIBRARIES})
+    endif (SDL_FOUND)
+endif (PkgConfig_FOUND)
+
+link_libraries("pthread")
+add_executable(aplayer aplayer.c)
+add_executable(sws sws.c)
+add_executable(extract_audio extract_audio.c)
+target_link_libraries(aplayer "pthread")
+
+add_executable(sdl_image sdl/sdl_image.cpp)
+add_executable(sdl_image_bmp sdl/sdl_image_bmp.cpp)
+add_executable(sdl_image_gif sdl/sdl_image_gif.cpp)
+target_link_libraries(sdl_image_gif ${SDL_LIBRARIES} 'gif')
+
+include(${PROJECT_SOURCE_DIR}/gles/gles.cmake)
+include(${PROJECT_SOURCE_DIR}/gtk/gtk.cmake)
+include(${PROJECT_SOURCE_DIR}/gstreamer/gstreamer.cmake)

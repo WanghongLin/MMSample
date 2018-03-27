@@ -12,4 +12,4 @@ if (PkgConfig_FOUND)
     endif (GSTREAMER_FOUND)
 endif (PkgConfig_FOUND)
 
-add_executable(gstreamer gstreamer/gstreamer.cpp)
+add_executable(gstreamer gstreamer.cpp)

@@ -20,3 +20,16 @@
 // Created by mutter on 4/10/18.
 //
 
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[])
+{
+    while (1) {
+        fprintf(stdout, "long running cmd %ld\n", time(NULL));
+        fflush(stdout);
+        sleep(1);
+    }
+    return 0;
+}

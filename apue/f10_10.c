@@ -20,3 +20,32 @@
 // Created by mutter on 4/10/18.
 //
 
+#include "apue.h"
+
+static void sig_alrm(int);
+
+int main(int argc, char *argv[])
+{
+    int n;
+    char line[MAXLINE];
+
+    if (signal(SIGALRM, sig_alrm) == SIG_ERR) {
+        err_sys("signal(SIGALRM) error");
+    }
+
+    alarm(10);
+
+    if ((n = read(STDIN_FILENO, line, MAXLINE)) < 0) {
+        err_sys("read error");
+    }
+
+    alarm(0);
+    write(STDOUT_FILENO, line, n);
+    return 0;
+}
+
+static void sig_alrm(int signo)
+{
+    // nothing to do
+}
+

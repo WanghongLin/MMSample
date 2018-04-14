@@ -19,3 +19,5 @@ add_executable(substring-with-concatenation-of-all-words substring-with-concaten
 add_executable(group-anagrams group-anagrams.c)
 add_executable(length-of-last-word length-of-last-word.c)
 add_executable(maximum-subarray maximum-subarray.c)
+add_executable(plus-one plus-one.c)
+add_executable(add-binary add-binary.c)

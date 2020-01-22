@@ -25,6 +25,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 #    endif (SDL_FOUND)
 #endif (PkgConfig_FOUND)
 
+add_subdirectory(png)
 add_subdirectory(sdl)
 add_subdirectory(gles)
 add_subdirectory(gtk)

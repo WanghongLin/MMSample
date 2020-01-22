@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     cv::Mat grayImage;
     cv::cvtColor(image, grayImage, cv::COLOR_BGR2GRAY);
 
-    cv::imwrite(mktemp("ocv") + std::string(".png"), grayImage);
+    cv::imwrite(mktemp(strdup("/tmp/temp.XXXXXX")) + std::string(".png"), grayImage);
 
     cv::namedWindow(imageName, cv::WINDOW_AUTOSIZE);
     cv::namedWindow("Gray image", cv::WINDOW_AUTOSIZE);

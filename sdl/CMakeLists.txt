@@ -1,0 +1,17 @@
+project(sdl)
+
+include(FindPkgConfig)
+if (PkgConfig_FOUND)
+    pkg_check_modules(SDL sdl2 SDL2_image)
+    if (SDL_FOUND)
+        include_directories(${SDL_INCLUDE_DIRS})
+        add_compile_options(${SDL_CFLAGS})
+        link_directories(${SDL_LIBRARY_DIRS})
+        link_libraries(${SDL_LIBRARIES})
+    endif (SDL_FOUND)
+endif (PkgConfig_FOUND)
+
+add_executable(sdl_image sdl_image.cpp)
+add_executable(sdl_image_bmp sdl_image_bmp.cpp)
+add_executable(sdl_image_gif sdl_image_gif.cpp)
+target_link_libraries(sdl_image_gif ${SDL_LIBRARIES} 'gif')
